@@ -18,10 +18,10 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # reverse the string
-    big_endian = digits[::-1]
+    little_endian = digits[::-1]
     decimal = 0
-    for power in range(len(big_endian)):
-        ordinal = string.printable.index(big_endian[power])
+    for power in range(len(little_endian)):
+        ordinal = string.printable.index(little_endian[power])
         decimal += ordinal * math.pow(base, power)
     return decimal
 
