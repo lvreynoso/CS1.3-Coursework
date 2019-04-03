@@ -40,8 +40,8 @@ def encode(number, base):
     output = ""
     for power in range(highest_power, -1, -1):
         if value_left_to_convert > 0:
-            decimal_value = int(math.floor(value_left_to_convert / math.pow(base, power)))
-            value_left_to_convert -= int(decimal_value * math.pow(base, power))
+            decimal_value = value_left_to_convert // math.pow(base, power)
+            value_left_to_convert -= decimal_value * int(math.pow(base, power))
             output += string.printable[decimal_value]
         else:
             output += "0" 
