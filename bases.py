@@ -22,7 +22,7 @@ def decode(digits, base):
     decimal = 0
     for power in range(len(little_endian)):
         ordinal = string.printable.index(little_endian[power])
-        decimal += ordinal * math.pow(base, power)
+        decimal += ordinal * (base ** power)
     return decimal
 
 
@@ -40,8 +40,8 @@ def encode(number, base):
     output = ""
     for power in range(highest_power, -1, -1):
         if value_left_to_convert > 0:
-            decimal_value = int(value_left_to_convert // math.pow(base, power))
-            value_left_to_convert -= int(decimal_value * math.pow(base, power))
+            decimal_value = value_left_to_convert // (base ** power)
+            value_left_to_convert -= decimal_value * (base ** power)
             output += string.printable[decimal_value]
         else:
             output += "0" 
