@@ -40,11 +40,11 @@ def encode(number, base):
     output = ""
     for power in range(highest_power, -1, -1):
         if value_left_to_convert > 0:
-            decimal_value = value_left_to_convert // (base ** power)
-            value_left_to_convert -= decimal_value * (base ** power)
-            output += string.printable[decimal_value]
+            glyph_decimal_value = value_left_to_convert // (base ** power)
+            value_left_to_convert -= glyph_decimal_value * (base ** power)
+            output += string.printable[glyph_decimal_value]
         else:
-            output += "0" 
+            output += "0"
     return output
 
 
