@@ -13,13 +13,9 @@ def factorial(n):
 
 
 def factorial_iterative(n):
-    # TODO: implement the factorial function iteratively here
     result = 1
-    for number in range(n, 0, -1):
-        if number == 0 or number == 1:
-            result *= 1
-        else:
-            result *= number
+    for number in range(n, 1, -1):
+        result *= number
     return result
     # once implemented, change factorial (above) to call factorial_iterative
     # to verify that your iterative implementation passes all tests

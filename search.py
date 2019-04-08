@@ -1,4 +1,5 @@
 #!python
+import math
 
 def linear_search(array, item):
     """return the first index of item in array or None if item is not found"""
@@ -17,7 +18,6 @@ def linear_search_iterative(array, item):
 
 
 def linear_search_recursive(array, item, index=0):
-    # TODO: implement linear search recursively here
     if index >= len(array):
         return None
     if item == array[index]:
@@ -37,11 +37,12 @@ def binary_search(array, item):
 
 
 def binary_search_iterative(array, item):
-    # TODO: implement binary search iteratively here
     left = 0
     right = len(array) - 1
-    # 32 steps maximum to find something
-    for step in range(33):
+    # max number of comparisons is log2(n)
+    comparisons = int(math.ceil(math.log(len(array), 2)))
+
+    for step in range(comparisons):
         index = (right + left) // 2
         if array[index] == item:
             return index
@@ -58,7 +59,6 @@ def binary_search_iterative(array, item):
 
 
 def binary_search_recursive(array, item, left=None, right=None):
-    # TODO: implement binary search recursively here
     if left == None or right == None:
         left = 0
         right = len(array) - 1
