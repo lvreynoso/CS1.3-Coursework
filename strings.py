@@ -4,7 +4,7 @@ def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # it can't be this easy, can it?
+    # kind of self explanatory
     if pattern in text:
         return True
     else:
@@ -17,42 +17,35 @@ def find_index(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
-    # wow much empty very string
-    if pattern == '':
-        return 0
-
-    index = None
-    counter = 0
-    for position, letter in enumerate(text):
-        if letter == pattern[counter]:
-            counter += 1
-        elif letter == pattern[0]:
-            counter = 1
-        else:
-            counter = 0
-        if counter == len(pattern):
-            index = position - counter + 1
-            break
-    return index
+    indices = find_all_indexes(text, pattern)
+    if len(indices) > 0:
+        return indices[0]
+    return None
 
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    offset = 0
-    chop = 0
+    # wow much empty very string
+    if pattern == '':
+        return [position for position, character in enumerate(text)]
+
     indices = []
-    remainder = text
-    while offset < len(text):
-        remainder = remainder[chop:]
-        index = find_index(remainder, pattern)
-        if index == None:
-            break
-        else:
-            indices.append(index + offset)
-            chop = index + 1
-            offset += chop
+    candidates = {}
+    delta = len(pattern)
+    for position, letter in enumerate(text):
+        if letter == pattern[0]:
+            candidates[position] = 1
+        for key, value in candidates.items():
+            if candidates[key] != False:
+                if key != position and letter == pattern[value]:
+                    candidates[key] += 1
+                elif key != position and letter != pattern[value]:
+                    candidates[key] = False
+            if candidates[key] == delta:
+                    indices.append(key)
+                    candidates[key] = False
     return indices
 
 def test_string_algorithms(text, pattern):

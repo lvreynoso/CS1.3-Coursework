@@ -162,6 +162,93 @@ class StringsTest(unittest.TestCase):
             ̮Z͏̠̩͚̥̺̻A̦͔̜͎ͅL̪͜G͉̳͍̀ͅO̭̠̞̲͈̟̭͡!̫̹̰̣
             ''', 
             'chaos') == []
+        assert find_all_indexes('''
+            Head underwater
+            And they tell me
+            To breathe easy for a while
+            Breathing gets harder, even I know that
+            Made room for me It's too soon to see
+            If I'm happy in your hands
+            I'm unusually hard to hold on to
+
+            Blank stares at blank pages
+            No easy way to say this
+            You mean well, but you make this hard on me
+
+            I'm not gonna write you a love song
+            'Cause you asked for it
+            'Cause you need one, you see
+
+            I'm not gonna write you a love song
+            'Cause you tell me it's
+            Make or breaking this
+            If you're on your way
+
+            I'm not gonna write you to stay
+            If all you have is leavin'
+            I'ma need a better reason
+            To write you a love song
+            Today, today, yeah
+
+            I learned the hard way
+            That they all say
+            Things you want to hear
+
+            My heavy heart sinks deep down under
+            You and your twisted words
+            Your help just hurts
+            You are not what I thought you were
+            Hello to high and dry
+
+            Convince me to please you
+            Make me think that I need this too
+            I'm trying to let you hear me as I am
+
+            I'm not gonna write you a love song
+            'Cause you asked for it
+            'Cause you need one, you see
+
+            I'm not gonna write you alove song
+            'Cause you tell me it's
+            Make or breaking this
+            If you're on your way
+
+            I'm not gonna write you to stay
+            If all you have is leavin'
+            I'ma need a better reason
+            To write you a love song
+            Today
+
+            Promise me you'll leave the light on
+            To help me see
+            With daylight, my guide, gone
+            'Cause I believe there's a way
+            You can love me because I say
+            I'm not gonna write you a love song
+            'Cause you asked for it
+            'Cause you need one,
+            You see
+
+            I'm not gonna write you a love song
+            'Cause you tell me it's
+            Make or breaking this
+            Is that why you wanted a love song?
+            'Cause you asked for it
+            'Cause you need one, you see
+
+            I'm not gonna write you a love song
+            'Cause you tell me it's
+            Make or breaking this
+            Or you're on your way
+            I'm not gonna write you to stay
+
+            If your heart is nowhere in it
+            I don't want it for a minute
+            Babe, I'll walk the seven seas when I believe that
+            There's a reason to write you a love song
+            Today, today
+            ''', 
+            '\n') != []
         with self.assertRaises(AssertionError, msg='text is not a string: {}'.format(599)):
             find_all_indexes(599, '420')
         with self.assertRaises(AssertionError, msg='pattern is not a string: {}'.format(420)):
