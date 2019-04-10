@@ -38,14 +38,14 @@ def find_all_indexes(text, pattern):
         if letter == pattern[0]:
             candidates[position] = 1
         for key, value in candidates.items():
-            if candidates[key] != False:
+            if value != False:
                 if key != position and letter == pattern[value]:
                     candidates[key] += 1
                 elif key != position and letter != pattern[value]:
                     candidates[key] = False
-            if candidates[key] == delta:
-                    indices.append(key)
-                    candidates[key] = False
+                if candidates[key] == delta:
+                        indices.append(key)
+                        candidates[key] = False
     return indices
 
 def test_string_algorithms(text, pattern):
