@@ -117,6 +117,47 @@ class StringsTest(unittest.TestCase):
         # You'll need a lot more than this to test your algorithm's robustness
         # ...
 
+    def test_walk_the_gauntlet(self):
+        # METAL AF
+        assert find_all_indexes('99 Red Balloons', '99') == [0]
+        assert find_all_indexes('99 Red Balloons', '99 RED BALLOONS') == []
+        assert find_all_indexes('sidyuf87723yh4j23!@#(@!$HRJWEfekwf', '@') == [18, 21]
+        assert find_all_indexes('Marlene Dietrich', 'Backpfeifengesicht') == []
+        assert find_all_indexes('施氏食獅史', '食') == [2]
+        assert find_all_indexes('''
+            Donald J. Trump
+            @realDonaldTrump
+
+            Despite the negative press covfefe
+
+            Retweets Likes
+            11,029 13,430
+            12:06 AM - 31 May 2017
+            ''',
+            'covfefe') == [98]
+        assert find_all_indexes('''
+            To be fair, you have to have a very high IQ to understand Rick and Morty. 
+            The humor is extremely subtle, and without a solid grasp of theoretical physics 
+            most of the jokes will go over a typical viewer's head. There's also Rick's nihilistic 
+            outlook, which is deftly woven into his characterisation - his personal philosophy 
+            draws heavily from Narodnaya Volya literature, for instance. The fans understand this 
+            stuff; they have the intellectual capacity to truly appreciate the depths of these jokes, 
+            to realize that they're not just funny- they say something deep about LIFE. As a 
+            consequence people who dislike Rick and Morty truly ARE idiots- of course they wouldn't 
+            appreciate, for instance, the humour in Rick's existential catchphrase "Wubba Lubba Dub 
+            Dub," which itself is a cryptic reference to Turgenev's Russian epic Fathers and Sons. 
+            I'm smirking right now just imagining one of those addlepated simpletons scratching their 
+            heads in confusion as Dan Harmon's genius unfolds itself on their television screens. 
+            What fools... how I pity them. 😂 And yes by the way, I DO have a Rick and Morty tattoo. 
+            And no, you cannot see it. It's for the ladies' eyes only- And even they have to 
+            demonstrate that they're within 5 IQ points of my own (preferably lower) beforehand.
+            ''',
+            'Morty') == [80, 725, 1263]
+        with self.assertRaises(AssertionError, msg='text is not a string: {}'.format(599)):
+            find_all_indexes(599, '420')
+        with self.assertRaises(AssertionError, msg='pattern is not a string: {}'.format(420)):
+            find_all_indexes('599', 420)
+
 
 if __name__ == '__main__':
     unittest.main()
