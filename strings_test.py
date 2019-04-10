@@ -153,6 +153,15 @@ class StringsTest(unittest.TestCase):
             demonstrate that they're within 5 IQ points of my own (preferably lower) beforehand.
             ''',
             'Morty') == [80, 725, 1263]
+        assert find_all_indexes('''
+            T̜͔̱ọ̺̺̝̤ ̥̞̩͓̜i͔̪̖͔̭̯͟n͓̬̤̯̖v̤ͅo̡̤̺̙͇̳͈̭k͕̭e̪̬͍̭̰͝ͅ ̵̹t͓̣̞̲͞h͉̰̥͎͢e͎̳͇͡ ͈̰͈̭̹͕̥h͍̜̬i̞̯͚͔̼̯v̭͚͙̻̙͟e̡͍̩̩̗͉-̟͕̖͓͚͓́m̙ͅi̭̭̮̦͖̫n̪̭͇d̮̲̖̤͓͟ ҉͍̰̗̹̯r̼̪͕͡e͠pr̷e͉͉̲̖s͉͙é̠̗̰̹n̡̝͎t͖̼̯͖̱͉in͓͔̝͍̞͉͜g̬̬̣ ͎̳̦͔̹̟̟c͉̺̮h̫̞͈̘̯̀a̼o̷̟̟̣̪s̝̕.̴̝̣͉͉͎̺
+            ̫̀I̝͖̣͎͇̲͠ͅn̲̪̦v̸̫̣̖̪̺̙o̸̠͙͍̩k̜i̜n̳̭̖̼ͅg̢ ̀t̰͙h̯͙͇̬͖̟e̟̭̘̱̟̦ ̩͉̗̱̰̝͡f͕̙̲̲͟ͅͅee̙̜͈͖l̵̙͙i̩͕̮̳͙̙̝n͕g̡̻̥̲̞̰̝̟ ̰o͖͎f̛ ͈̳c̩̟̱͈̦͘ͅh̝̮a̘̺͈o͚̲̯̞͕s̘̞̝̹̗͇͈͞.̡͓̪̮̪
+            ͕̻͈̻͕͉̀W̼̗̺̫̞͖it̠̦͎̪͓̺̻́h̭̼̘͕͔͔ ͕͓̠̟̙͉̩o̪͇̲̯u̸̟͚̰̠̲ṯ̖̭ ̰̣̣o̫̣̤͖̫͚͞ͅr̻d͏̘̣͙͓̫̭̩e̴̹͙͎̟r̹.
+            ̝̤̩́The ͉̜̟͈͍N̯̤̞͔e̦̹̯̠̥̹z̡͇̭p̪̱̳ę̟̙͙ŕ̦͓̤͉͙̗͈d̴̖̖̺̩̼i̷̼̩a̺̲̪̘n҉̲̣ ͎̩̜h̬̗͉̱͉͈i̻͉̘̹̕v̴͉̤̱̖è̝̭̯̣̘-͇̘͔̜̜̜͞ͅm̵̠̝̦i̠̣͔n͖͈d҉̲̺ ̡̖͇͍o͘f̵ ch̩̞̗̱̘̀a̵̗̤͈̟̭o҉s.̸ ̠̞̠̭͖̦Z͘a͕̣̪̫͇̙l̗͖̳g͎̟̻o͖͚̮̬͘.̴̩
+            ͔̝̦͖̬̲̠H͚̝͡e̵͇̜̲̦͔ͅ ͎͚͇w͔̹̭̳h̟̙͝o̸̯̫̯ ̢̫̤͖̯͕W̤ͅͅḁ̟̻iț̛͍͍ͅs͇̮̗ ̹͕͙̭͎̰̺B͞e̥h̜i̲̹̠̳͡ͅn͚͓̝̹̞d̵̹̫̗̯̩ ͡T̗͕̹̣͚̘̗h͓e̡̮ ̖͉W͇͈̠̱͈͉̬a̯̱̩͉͔͟l̶̰̞̻͚̗l̰͈͕̲̭̙͈.̯͟
+            ̮Z͏̠̩͚̥̺̻A̦͔̜͎ͅL̪͜G͉̳͍̀ͅO̭̠̞̲͈̟̭͡!̫̹̰̣
+            ''', 
+            'chaos') == []
         with self.assertRaises(AssertionError, msg='text is not a string: {}'.format(599)):
             find_all_indexes(599, '420')
         with self.assertRaises(AssertionError, msg='pattern is not a string: {}'.format(420)):
