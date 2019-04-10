@@ -13,8 +13,8 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    # return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
 
 
 def is_palindrome_iterative(text):
@@ -23,10 +23,16 @@ def is_palindrome_iterative(text):
     right = len(source) - 1
     while left <= right:
         while source[left] not in string.ascii_lowercase:
-            left += 1
+            if left < len(text):
+                left += 1
+            else:
+                break
         while source[right] not in string.ascii_lowercase:
-            right -= 1
-        if left > right:
+            if right > 0:
+                right -= 1
+            else:
+                break
+        if left >= right:
             break
         elif source[left] != source[right]:
             return False
@@ -36,10 +42,30 @@ def is_palindrome_iterative(text):
 
 
 def is_palindrome_recursive(text, left=None, right=None):
-    # TODO: implement the is_palindrome function recursively here
-    
-    # once implemented, change is_palindrome to call is_palindrome_recursive
-    # to verify that your iterative implementation passes all tests
+    if left == None or right == None:
+        text = text.lower()
+        left = 0
+        right = len(text) - 1
+    # wow much empty very string
+    if len(text) == 0:
+        return True
+    while text[left] not in string.ascii_lowercase:
+        if left < len(text):
+            left += 1
+        else:
+            break
+    while text[right] not in string.ascii_lowercase:
+        if right > 0:
+            right -= 1
+        else:
+            break
+    if left >= right:
+        return True
+    if text[left] != text[right]:
+        return False
+    left += 1
+    right -= 1
+    return is_palindrome_recursive(text, left, right)
 
 
 def main():
