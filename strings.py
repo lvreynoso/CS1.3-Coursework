@@ -4,7 +4,11 @@ def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement contains here (iteratively and/or recursively)
+    # it can't be this easy, can it?
+    if pattern in text:
+        return True
+    else:
+        return False
 
 
 def find_index(text, pattern):
@@ -12,16 +16,44 @@ def find_index(text, pattern):
     or None if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_index here (iteratively and/or recursively)
 
+    # wow much empty very string
+    if pattern == '':
+        return 0
+
+    index = None
+    counter = 0
+    for position, letter in enumerate(text):
+        if letter == pattern[counter]:
+            counter += 1
+        elif letter == pattern[0]:
+            counter = 1
+        else:
+            counter = 0
+        if counter == len(pattern):
+            index = position - counter + 1
+            break
+    return index
 
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_all_indexes here (iteratively and/or recursively)
-
+    offset = 0
+    chop = 0
+    indices = []
+    remainder = text
+    while offset < len(text):
+        remainder = remainder[chop:]
+        index = find_index(remainder, pattern)
+        if index == None:
+            break
+        else:
+            indices.append(index + offset)
+            chop = index + 1
+            offset += chop
+    return indices
 
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)

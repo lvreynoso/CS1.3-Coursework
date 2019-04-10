@@ -46,8 +46,7 @@ def is_palindrome_recursive(text, left=None, right=None):
         text = text.lower()
         left = 0
         right = len(text) - 1
-    # wow much empty very string
-    if len(text) == 0:
+    if left >= right:
         return True
     while text[left] not in string.ascii_lowercase:
         if left < len(text):
@@ -59,8 +58,6 @@ def is_palindrome_recursive(text, left=None, right=None):
             right -= 1
         else:
             break
-    if left >= right:
-        return True
     if text[left] != text[right]:
         return False
     left += 1
