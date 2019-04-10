@@ -123,6 +123,7 @@ class StringsTest(unittest.TestCase):
         assert find_all_indexes('99 Red Balloons', '99 RED BALLOONS') == []
         assert find_all_indexes('sidyuf87723yh4j23!@#(@!$HRJWEfekwf', '@') == [18, 21]
         assert find_all_indexes('Marlene Dietrich', 'Backpfeifengesicht') == []
+        assert find_all_indexes('anananananananananananananananananan', 'anana') == [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
         assert find_all_indexes('施氏食獅史', '食') == [2]
         assert find_all_indexes('''
             Donald J. Trump
