@@ -48,17 +48,18 @@ def find_all_indexes(text, pattern):
     candidates = {}
     delta = len(pattern)
     for position, character in enumerate(text):
+        # try to match all the first letters of the pattern
         if character == pattern[0]:
             candidates[position] = 1
-        for key, value in candidates.items():
-            if value != False:
-                if key != position and character == pattern[value]:
-                    candidates[key] += 1
-                elif key != position and character != pattern[value]:
-                    candidates[key] = False
-                if candidates[key] == delta:
-                        indices.append(key)
-                        candidates[key] = False
+        for index, streak in candidates.items():
+            if streak != False:
+                if index != position and character == pattern[streak]:
+                    candidates[index] += 1
+                elif index != position and character != pattern[streak]:
+                    candidates[index] = False
+                if candidates[index] == delta:
+                        indices.append(index)
+                        candidates[index] = False
     return indices
 
 def test_string_algorithms(text, pattern):
