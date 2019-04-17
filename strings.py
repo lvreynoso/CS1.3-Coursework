@@ -42,7 +42,7 @@ def find_all_indexes(text, pattern):
     # If the key's value reaches the length of the pattern, then we know we have found a match,
     # so we append the key to our array of indices (because the key is the index of the first 
     # letter in the match) and set the value in the hash table to False since we're done with it.
-    # time complexity - best case O(n), worse case O(mn)?
+    # time complexity - best case O(n), worse case O(nm)?
     # space complexity - best case O(1), worst case O(n)?
     indices = []
     candidates = {}
@@ -52,7 +52,7 @@ def find_all_indexes(text, pattern):
         if character == pattern[0]:
             candidates[position] = 1
         for index, streak in candidates.items():
-            if streak != False:
+            if streak != False: 
                 if index != position and character == pattern[streak]:
                     candidates[index] += 1
                 elif index != position and character != pattern[streak]:

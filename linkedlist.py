@@ -39,6 +39,12 @@ class LinkedList(object):
     def __len__(self):
         return self.size
 
+    def __getitem__(self, index):
+        return self.get_at_index(index)
+
+    def __setitem__(self, index):
+        return self.insert_at_index(index)
+
     def __iter__(self):
         return self.generator()
 
@@ -74,20 +80,6 @@ class LinkedList(object):
         Running time: O(1) - length is stored as a variable that can be accessed in constant time"""
         return self.size
 
-        # Best and worst case running time: ??? under what conditions? [TODO]"""
-        # # Node counter initialized to zero
-        # node_count = 0
-        # # Start at the head node
-        # node = self.head
-        # # Loop until the node is None, which is one node too far past the tail
-        # while node is not None:
-        #     # Count one for this node
-        #     node_count += 1
-        #     # Skip to the next node
-        #     node = node.next
-        # # Now node_count contains the number of nodes
-        # return node_count
-
     def get_at_index(self, index):
         """Return the item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
@@ -105,8 +97,8 @@ class LinkedList(object):
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) if the index is 0
+        Worst case running time: O(n) if the given index is at the end of the list"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
