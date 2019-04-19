@@ -21,24 +21,20 @@ class LinkedStack(object):
 
     def is_empty(self):
         """Return True if this stack is empty, or False otherwise."""
-        # TODO: Check if empty
         return self.list.is_empty()
 
     def length(self):
         """Return the number of items in this stack."""
-        # TODO: Count number of items
         return self.list.length()
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Push given item
+        Running time: O(1) - constant because it's always pushed to the head"""
         self.list.prepend(item)
 
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
-        # TODO: Return top item, if any
         try:
             return self.list[0]
         except ValueError:
@@ -47,8 +43,7 @@ class LinkedStack(object):
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Remove and return top item, if any
+        Running time: O(1) constant because we're always popping the head of the list"""
         data = self.list[0]
         self.list.delete(data)
         return data
@@ -72,24 +67,20 @@ class ArrayStack(object):
 
     def is_empty(self):
         """Return True if this stack is empty, or False otherwise."""
-        # TODO: Check if empty
         return len(self.list) == 0
 
     def length(self):
         """Return the number of items in this stack."""
-        # TODO: Count number of items
         return len(self.list)
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Insert given item
+        Running time: O(1) because appending to the end of a list is constant"""
         self.list.append(item)
 
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
-        # TODO: Return top item, if any
         try:
             return self.list[-1]
         except IndexError:
@@ -98,8 +89,7 @@ class ArrayStack(object):
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Remove and return top item, if any
+        Running time: O(1) because we're always popping from the end of the list"""
         try:
             return self.list.pop()
         except IndexError:

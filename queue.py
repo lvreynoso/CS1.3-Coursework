@@ -21,24 +21,21 @@ class LinkedQueue(object):
 
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
-        # TODO: Check if empty
         return self.list.is_empty()
 
     def length(self):
         """Return the number of items in this queue."""
-        # TODO: Count number of items
         return self.list.length()
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Insert given item
+        Running time: O(1), LL has a reference to the tail
+        and the item is appended after that"""
         self.list.append(item)
 
     def front(self):
         """Return the item at the front of this queue without removing it,
         or None if this queue is empty."""
-        # TODO: Return front item, if any
         try:
             return self.list[0]
         except ValueError:
@@ -47,8 +44,7 @@ class LinkedQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Remove and return front item, if any
+        Running time: O(1) because we always dequeue the head"""
         data = self.list[0]
         self.list.delete(data)
         return data
@@ -72,24 +68,20 @@ class ArrayQueue(object):
 
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
-        # TODO: Check if empty
         return len(self.list) == 0
 
     def length(self):
         """Return the number of items in this queue."""
-        # TODO: Count number of items
         return len(self.list)
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Insert given item
+        Running time: O(1) because appending to the end of an array is constant"""
         self.list.append(item)
 
     def front(self):
         """Return the item at the front of this queue without removing it,
         or None if this queue is empty."""
-        # TODO: Return front item, if any
         try:
             return self.list[0]
         except IndexError:
@@ -98,8 +90,9 @@ class ArrayQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Remove and return front item, if any
+        Running time: O(n) based on the size of the array because
+        we are popping from index 0, which means we have to shift
+        everything in the array"""
         try:
             return self.list.pop(0)
         except IndexError:
