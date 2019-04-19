@@ -11,7 +11,8 @@ class HashTableTest(unittest.TestCase):
 
     def test_init(self):
         ht = HashTable(4)
-        assert len(ht.buckets) == 4
+        # assert len(ht.buckets) == 4
+        assert len(ht.cells) == 4
         assert ht.length() == 0
         assert ht.size == 0
 
@@ -68,23 +69,28 @@ class HashTableTest(unittest.TestCase):
     def test_resize(self):
         ht = HashTable(2)  # Set init_size to 2
         assert ht.size == 0
-        assert len(ht.buckets) == 2
+        # assert len(ht.buckets) == 2
+        assert len(ht.cells) == 2
         assert ht.load_factor() == 0
         ht.set('I', 1)
         assert ht.size == 1
-        assert len(ht.buckets) == 2
+        # assert len(ht.buckets) == 2
+        assert len(ht.cells) == 2
         assert ht.load_factor() == 0.5
         ht.set('V', 5)  # Should trigger resize
         assert ht.size == 2
-        assert len(ht.buckets) == 4
+        # assert len(ht.buckets) == 4
+        assert len(ht.cells) == 4
         assert ht.load_factor() == 0.5
         ht.set('X', 10)
         assert ht.size == 3
-        assert len(ht.buckets) == 4
+        # assert len(ht.buckets) == 4
+        assert len(ht.cells) == 4
         assert ht.load_factor() == 0.75
         ht.set('L', 50)  # Should trigger resize
         assert ht.size == 4
-        assert len(ht.buckets) == 8
+        # assert len(ht.buckets) == 8
+        assert len(ht.cells) == 8
         assert ht.load_factor() == 0.5
 
     def test_contains(self):
