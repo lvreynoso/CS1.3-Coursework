@@ -14,6 +14,13 @@ class Set(object):
             self.orb = HashTable()
         self.size = self.orb.size
 
+    def __str__(self):
+        items = ['{!r}'.format(element) for element in self]
+        return '{' + ', '.join(items) + '}'
+
+    def __repr__(self):
+        return 'Set({!r})'.format(self.orb.keys())
+
     def __contains__(self, item):
         return self.contains(item)
 
@@ -23,7 +30,7 @@ class Set(object):
     def __iter__(self):
         return self._generator()
 
-    def _generator():
+    def _generator(self):
         elements = self.orb.keys()
         for element in elements:
             yield element
@@ -74,3 +81,41 @@ class Set(object):
             if element not in self:
                 return False
         return True
+
+def test_set():
+    test = Set()
+    print('Set: ' + str(test))
+
+    print('Setting entries:')
+    test.add('S')
+    print('set(S): ' + str(test))
+    test.add('A')
+    print('set(A): ' + str(test))
+    test.add('F')
+    print('set(F): ' + str(test))
+    test.add('E')
+    print('set(E): ' + str(test))
+    # print('Set: ' + str(test))
+    print('size: ' + str(test.size) + '\n')
+
+    print('Checking entries:')
+    print('contains(S): ' + str(test.contains('S')))
+    print('contains(A): ' + str(test.contains('A')))
+    print('contains(F): ' + str(test.contains('F')))
+    print('contains(E): ' + str(test.contains('E')))
+    print('')
+
+    print('Removing entries:')
+    test.remove('S')
+    print('remove(S): ' + str(test))
+    test.remove('A')
+    print('remove(A): ' + str(test))
+    test.remove('F')
+    print('remove(F): ' + str(test))
+    test.remove('E')
+    print('remove(E): ' + str(test))
+    print('contains(F): ' + str(test.contains('F')))
+    print('size: ' + str(test.size))
+
+if __name__ == '__main__':
+    test_set()
