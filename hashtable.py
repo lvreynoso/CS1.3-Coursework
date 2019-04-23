@@ -139,24 +139,24 @@ class HashTableLinkedList(object):
         """Resize this hash table's buckets and rehash all key-value entries.
         Should be called automatically when load factor exceeds a threshold
         such as 0.75 after an insertion (when set is called with a new key).
-        Best and worst case running time: ??? under what conditions? [TODO]
-        Best and worst case space usage: ??? what uses this memory? [TODO]"""
+        Best and worst case running time: ??? under what conditions?
+        Best and worst case space usage: ??? what uses this memory?"""
         # If unspecified, choose new size dynamically based on current size
         if new_size is None:
             new_size = len(self.buckets) * 2  # Double size
         # Option to reduce size if buckets are sparsely filled (low load factor)
         elif new_size is 0:
             new_size = len(self.buckets) / 2  # Half size
-        # TODO: Get a list to temporarily hold all current key-value entries
+        # Get a list to temporarily hold all current key-value entries
         entries = self.items()
-        # TODO: Create a new list of new_size total empty linked list buckets
+        # Create a new list of new_size total empty linked list buckets
         self.buckets = [LinkedList() for i in range(new_size)]
-        # TODO: Insert each key-value entry into the new list of buckets,
+        # Insert each key-value entry into the new list of buckets,
         # which will rehash them into a new bucket index based on the new size
         self.size = 0
-        for entry in entries:
+        for key, value in entries:
             # key is the first item in the entry, value is the second
-            self.set(entry[0], entry[1])
+            self.set(key, value)
 
 class HashTableLinearProbing(object):
     def __init__(self, init_size=8):
@@ -171,6 +171,29 @@ class HashTableLinearProbing(object):
     def __repr__(self):
         """Return a string representation of this hash table."""
         return 'HashTable({!r})'.format(self.items())
+
+    def __len__(self):
+        return self.size
+
+    def __contains__(self, item):
+        return self.contains(item)
+
+    def __getitem__(self, key):
+        return self.get(key)
+
+    def __setitem__(self, key, value):
+        return self.set(key, value)
+
+    def __delitem__(self, key):
+        return self.delete(key)
+
+    def __iter__(self):
+        return self._generator()
+
+    def _generator(self):
+        items = self.items()
+        for item in items:
+            yield item
 
     def _cell_index(self, key):
         """Return the cell index where the given key would be stored."""
@@ -328,9 +351,9 @@ class HashTableLinearProbing(object):
         # Insert each key-value entry into the new list of cells,
         # which will rehash them into a new cell index based on the new size
         self.size = 0
-        for entry in entries:
+        for key, value in entries:
             # key is the first item in the entry, value is the second
-            self.set(entry[0], entry[1])
+            self.set(key, value)
 
 # HashTable = HashTableLinkedList
 HashTable = HashTableLinearProbing

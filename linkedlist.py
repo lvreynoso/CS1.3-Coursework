@@ -42,13 +42,13 @@ class LinkedList(object):
     def __getitem__(self, index):
         return self.get_at_index(index)
 
-    def __setitem__(self, index):
-        return self.insert_at_index(index)
+    def __setitem__(self, index, item):
+        return self.insert_at_index(index, item)
 
     def __iter__(self):
-        return self.generator()
+        return self._generator()
 
-    def generator(self):
+    def _generator(self):
         node = self.head
         while node is not None:
             yield node.data
