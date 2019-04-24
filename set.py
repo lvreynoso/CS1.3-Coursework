@@ -7,7 +7,7 @@ class Set(object):
     def __init__(self, elements=None):
         # Initialize the set with the given elements
         if elements is not None:
-            self.orb = HashTable(len(elements))
+            self.orb = HashTable(len(elements) * 2)
             for element in elements:
                 self.orb.set(element, None)
         else:
@@ -81,6 +81,16 @@ class Set(object):
             if element not in self:
                 return False
         return True
+
+    def symmetric_difference(self, other_set):
+        symmetric_set = Set(self)
+        for element in other_set:
+            if element in symmetric_set:
+                symmetric_set.remove(element)
+            else:
+                symmetric_set.add(element)
+        return symmetric_set
+
 
 def test_set():
     test = Set()
