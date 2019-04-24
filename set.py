@@ -65,15 +65,10 @@ class Set(object):
         return inter_set
 
     def difference(self, other_set):
-        diff_set = Set(self)
-        if len(other_set) < len(self):
-            for element in other_set:
-                if element in self:
-                    diff_set.remove(element)
-        else:
-            for element in self:
-                if element in other_set:
-                    diff_set.remove(element)
+        diff_set = Set()
+        for element in self:
+            if element not in other_set:
+                diff_set.add(element)
         return diff_set
 
     def is_subset(self, other_set):
