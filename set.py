@@ -36,23 +36,28 @@ class Set(object):
             yield element
 
     def contains(self, element):
+        # O(1)
         return self.orb.contains(element)
 
     def add(self, element):
+        # O(1)
         self.orb.set(element, None)
         self.size = self.orb.size
 
     def remove(self, element):
+        # O(1)
         self.orb.delete(element)
         self.size = self.orb.size
 
     def union(self, other_set):
+        # O(n + m)
         union_set = Set(self)
         for element in other_set:
             union_set.add(element)
         return union_set
 
     def intersection(self, other_set):
+        # O(m)
         inter_set = Set()
         if len(other_set) < len(self):
             for element in other_set:
@@ -65,6 +70,7 @@ class Set(object):
         return inter_set
 
     def difference(self, other_set):
+        # O(n)
         diff_set = Set()
         for element in self:
             if element not in other_set:
@@ -72,6 +78,7 @@ class Set(object):
         return diff_set
 
     def is_subset(self, other_set):
+        # O(m)
         for element in other_set:
             if element not in self:
                 return False
