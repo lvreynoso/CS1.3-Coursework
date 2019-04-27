@@ -25,6 +25,14 @@ class CircularBuffer(object):
                 items.append('{!r}'.format(value))
         return '{' + ', '.join(items) + '}'
 
+    def __repr__(self):
+        items = []
+        temp_index = self.read_index
+        for count in range(len(self.data)):
+            items.append(self.data[temp_index])
+            temp_index = (temp_index + 1) % self.max_size
+        return 'CircularBuffer({!r})'.format(items)
+
     def is_empty(self):
         return self.size == 0
 
@@ -34,14 +42,17 @@ class CircularBuffer(object):
     def enqueue(self, item):
         if self.data[self.write_index] is not None:
             self.read_index = (self.read_index + 1) % self.max_size
+        else:
+            self.size += 1
         self.data[self.write_index] = item
         self.write_index = (self.write_index + 1) % self.max_size
-        self.size += 1
 
     def front(self):
         return self.data[self.read_index]
 
     def dequeue(self):
+        if self.is_empty():
+            return None
         front_item = self.front()
         self.data[self.read_index] = None
         self.read_index = (self.read_index + 1) % self.max_size
@@ -61,6 +72,10 @@ def test_circular_buffer():
     print('Circular Buffer: ' + str(cb))
 
     cb.enqueue('Epsilon')
+    print('Circular Buffer: ' + str(cb))
+
+    print(cb.front())
+    cb.dequeue()
     print('Circular Buffer: ' + str(cb))
     print(cb.front())
     cb.dequeue()
