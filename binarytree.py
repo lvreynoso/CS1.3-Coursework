@@ -81,7 +81,7 @@ class BinarySearchTree(object):
         TODO: Worst case running time: ??? under what conditions?"""
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
-        # TODO: Return the node's data if found, or None
+        # Return the node's data if found, or None
         return node.data if node else None
 
     def insert(self, item):
@@ -90,24 +90,30 @@ class BinarySearchTree(object):
         TODO: Worst case running time: ??? under what conditions?"""
         # Handle the case where the tree is empty
         if self.is_empty():
-            # TODO: Create a new root node
+            # Create a new root node
             self.root = BinaryTreeNode(item)
-            # TODO: Increase the tree size
+            # Increase the tree size
             self.size += 1
             return
         # Find the parent node of where the given item should be inserted
         parent = self._find_parent_node_recursive(item, self.root)
-        # TODO: Check if the given item should be inserted left of parent node
+        # Check if the given item should be inserted left of parent node
         if item < parent.data:
-            # TODO: Create a new node and set the parent's left child
-            parent.left = BinaryTreeNode(item)
-        # TODO: Check if the given item should be inserted right of parent node
+            # Create a new node and set the parent's left child
+            if parent.left is None:
+                parent.left = BinaryTreeNode(item)
+            else:
+                return
+        # Check if the given item should be inserted right of parent node
         elif item > parent.data:
-            # TODO: Create a new node and set the parent's right child
-            parent.right = BinaryTreeNode(item)
+            # Create a new node and set the parent's right child
+            if parent.right is None:
+                parent.right = BinaryTreeNode(item)
+            else:
+                return
         else:
             return
-        # TODO: Increase the tree size
+        # Increase the tree size
         self.size += 1
 
     def _find_node_iterative(self, item):
@@ -120,11 +126,11 @@ class BinarySearchTree(object):
         node = self.root
         # Loop until we descend past the closest leaf node
         while node is not None:
-            # TODO: Check if the given item matches the node's data
+            # Check if the given item matches the node's data
             if item == node.data:
                 # Return the found node
                 return node
-            # TODO: Check if the given item is less than the node's data
+            # Check if the given item is less than the node's data
             elif item < node.data:
                 # Descend to the node's left child
                 node = node.left
@@ -217,6 +223,86 @@ class BinarySearchTree(object):
         # TODO: Use helper methods and break this algorithm down into 3 cases
         # based on how many children the node containing the given item has and
         # implement new helper methods for subtasks of the more complex cases
+
+        # find the nodes we need
+        parent_node = self._find_parent_node_recursive(item, self.root)
+        obsolete_node = self._find_node_recursive(item, self.root)
+        # item not present
+        if obsolete_node is None:
+            raise ValueError
+        # Case 1 or Case 2: No children, or only 1 child
+        if obsolete_node.left is None or obsolete_node.right is None:
+            if obsolete_node is self.root:
+                if obsolete_node.left:
+                    self.root = obsolete_node.left 
+                elif obsolete_node.right:
+                    self.root = obsolete_node.right
+                else:
+                    self.root = None
+            else:
+                if parent_node.left is obsolete_node and obsolete_node.left is None:
+                    parent_node.left = obsolete_node.right
+                elif parent_node.left is obsolete_node and obsolete_node.right is None:
+                    parent_node.left = obsolete_node.left
+                elif parent_node.right is obsolete_node and obsolete_node.left is None:
+                    parent_node.right = obsolete_node.right
+                elif parent_node.right is obsolete_node and obsolete_node.right is None:
+                    parent_node.right = obsolete_node.left
+            self.size -= 1 
+            return
+        # Case 3: Two children
+        elif obsolete_node.left and obsolete_node.right:
+            # find successor and predecessor nodes
+            successor_pair = self._find_successor(obsolete_node)
+            predecessor_pair = self._find_predecessor(obsolete_node)
+            successor = successor_pair[0]
+            successor_parent = successor_pair[1]
+            predecessor = predecessor_pair[0]
+            predecessor_parent = predecessor_pair[1]
+            # choose the node with the greater height, for balancing purposes
+            # connect the replacement's children, if any, with its parent
+            replacement = None
+            if successor.height() > predecessor.height():
+                if obsolete_node.right is not successor:
+                    successor_parent.left = successor.right
+                    successor.right = obsolete_node.right
+                successor.left = obsolete_node.left
+                replacement = successor
+            else:
+                if obsolete_node.left is not predecessor:
+                    predecessor_parent.right = predecessor.left
+                    predecessor.left = obsolete_node.left
+                predecessor.right = obsolete_node.right
+                replacement = predecessor
+            # now things converge
+            # insert the replacement into the obsolete node's slot
+            if obsolete_node is self.root:
+                self.root = replacement
+            else:
+                if parent_node.left is obsolete_node:
+                    parent_node.left = replacement 
+                elif parent_node.right is obsolete_node:
+                    parent_node.right = replacement
+            self.size -= 1
+            return
+
+    def _find_successor(self, node):
+        """Return a tuple containing the successor node and its parent."""
+        parent = None
+        successor = node.right 
+        while successor.left is not None:
+            parent = successor
+            successor = successor.left
+        return (successor, parent)
+
+    def _find_predecessor(self, node):
+        """Return a tuple containing the predecessor node and its parent."""
+        parent = None
+        predecessor = node.left 
+        while predecessor.right is not None:
+            parent = predecessor
+            predecessor = predecessor.right
+        return (predecessor, parent)
 
     def items_in_order(self):
         """Return an in-order list of all items in this binary search tree."""

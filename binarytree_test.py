@@ -174,50 +174,90 @@ class BinarySearchTreeTest(unittest.TestCase):
         assert tree.root.right.left.data == 5
         assert tree.root.right.right.data == 7
 
-    def DISABLED_test_delete_with_3_items(self):
+    def test_delete_with_3_items(self):
         # Create a complete binary search tree of 3 items in level-order
         items = [2, 1, 3]
         tree = BinarySearchTree(items)
         assert tree.root.data == 2
         assert tree.root.left.data == 1
         assert tree.root.right.data == 3
-        # TODO: Test structure of tree after each deletion
-        # tree.delete(2)
-        # assert tree.root.data == ...
-        # assert tree.root.left is ...
-        # assert tree.root.right is ...
-        # tree.delete(1)
-        # assert tree.root.data == ...
-        # assert tree.root.left is ...
-        # assert tree.root.right is ...
-        # tree.delete(3)
-        # assert tree.root.data is ...
-        # assert tree.root.left is ...
-        # assert tree.root.right is ...
+        # Test structure of tree after each deletion
+        tree.delete(2)
+        assert tree.size == 2
+        assert tree.contains(1) is True
+        assert tree.contains(3) is True
+        tree.delete(1)
+        assert tree.size == 1 
+        assert tree.contains(1) is False
+        assert tree.contains(3) is True
+        tree.delete(3)
+        assert tree.size == 0
+        assert tree.contains(1) is False
+        assert tree.contains(3) is False
+        assert tree.root is None
 
-    def DISABLED_test_delete_with_7_items(self):
+    def test_delete_with_7_items(self):
         # Create a complete binary search tree of 7 items in level-order
         items = [4, 2, 6, 1, 3, 5, 7]
         tree = BinarySearchTree(items)
-        # TODO: Test structure of tree after each deletion
-        # tree.delete(4)
-        # assert tree.root.data == ...
-        # assert tree.root.left.data == ...
-        # assert tree.root.right.data == ...
-        # assert ...
-        # assert ...
-        # tree.delete(...)
-        # assert tree.root.data == ...
-        # assert tree.root.left.data == ...
-        # assert tree.root.right.data == ...
-        # assert ...
-        # assert ...
-        # tree.delete(...)
-        # assert tree.root.data == ...
-        # assert tree.root.left.data == ...
-        # assert tree.root.right.data == ...
-        # assert ...
-        # assert ...
+        # Test structure of tree after each deletion
+        tree.delete(4)
+        assert tree.size == 6
+        assert tree.contains(2) is True
+        assert tree.contains(6) is True
+        assert tree.contains(1) is True
+        assert tree.contains(3) is True
+        assert tree.contains(5) is True
+        assert tree.contains(7) is True
+        tree.delete(2)
+        assert tree.size == 5
+        assert tree.contains(2) is False
+        assert tree.contains(6) is True
+        assert tree.contains(1) is True
+        assert tree.contains(3) is True
+        assert tree.contains(5) is True
+        assert tree.contains(7) is True
+        tree.delete(6)
+        assert tree.size == 4
+        assert tree.contains(2) is False
+        assert tree.contains(6) is False
+        assert tree.contains(1) is True
+        assert tree.contains(3) is True
+        assert tree.contains(5) is True
+        assert tree.contains(7) is True
+        tree.delete(1)
+        assert tree.size == 3
+        assert tree.contains(2) is False
+        assert tree.contains(6) is False
+        assert tree.contains(1) is False
+        assert tree.contains(3) is True
+        assert tree.contains(5) is True
+        assert tree.contains(7) is True
+        tree.delete(3)
+        assert tree.size == 2
+        assert tree.contains(2) is False
+        assert tree.contains(6) is False
+        assert tree.contains(1) is False
+        assert tree.contains(3) is False
+        assert tree.contains(5) is True
+        assert tree.contains(7) is True
+        tree.delete(5)
+        assert tree.size == 1
+        assert tree.contains(2) is False
+        assert tree.contains(6) is False
+        assert tree.contains(1) is False
+        assert tree.contains(3) is False
+        assert tree.contains(5) is False
+        assert tree.contains(7) is True
+        tree.delete(7)
+        assert tree.size == 0
+        assert tree.contains(2) is False
+        assert tree.contains(6) is False
+        assert tree.contains(1) is False
+        assert tree.contains(3) is False
+        assert tree.contains(5) is False
+        assert tree.contains(7) is False
+        assert tree.root is None
 
     def test_items_in_order_with_3_strings(self):
         # Create a complete binary search tree of 3 strings in level-order
