@@ -2,6 +2,8 @@
 
 from hashtable import HashTable
 import unittest
+import string
+import random
 # Python 2 and 3 compatibility: unittest module renamed this assertion method
 if not hasattr(unittest.TestCase, 'assertCountEqual'):
     unittest.TestCase.assertCountEqual = unittest.TestCase.assertItemsEqual
@@ -160,6 +162,28 @@ class HashTableTest(unittest.TestCase):
         ht.set(5, 25)
         assert len(ht.cells) == 8
         assert ht.load_factor() == 0.5
+
+    def test_stress_collision_integers(self):
+        ht = HashTable()
+        number_of_tests = 100000
+        for integer in range(number_of_tests):
+            double = integer << 1
+            ht.set(integer, double)
+        for integer in range(number_of_tests):
+            double = integer << 1
+            assert ht.get(integer) == double
+
+    def test_stress_collision_strings(self):
+        ht = HashTable()
+        number_of_tests = 100000
+        keys = []
+        for integer in range(number_of_tests):
+            key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=12))
+            value = True
+            ht.set(key, value)
+            keys.append(key)
+        for key in keys:
+            assert ht.get(key) == True
 
 if __name__ == '__main__':
     unittest.main()
