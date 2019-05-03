@@ -3,7 +3,6 @@
 from queue import Queue
 import unittest
 
-
 class QueueTest(unittest.TestCase):
 
     def test_init(self):
