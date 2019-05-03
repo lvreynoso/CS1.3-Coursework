@@ -114,8 +114,8 @@ class HashTableLinkedList(object):
             self.size += 1
         # Insert the new key-value entry into the bucket in either case
         bucket.append((key, value))
-        # TODO: Check if the load factor exceeds a threshold such as 0.75
-        # TODO: If so, automatically resize to reduce the load factor
+        # Check if the load factor exceeds a threshold such as 0.75
+        # If so, automatically resize to reduce the load factor
         if self.load_factor() > 0.75:
             self._resize()
 
@@ -316,16 +316,18 @@ class HashTableLinearProbing(object):
         position = index
         # Find the entry with the given key in that cell, if one exists
         found = False
+        hole = None
         while self.cells[position][2] is not None:
             if self.cells[position][0] == key and found == False:
                 self.cells[position] = (None, None, None)
                 self.size -= 1
-                found = position
+                found = True
+                hole = position
             # Move cells up until we hit an empty one
-            elif found is not False and self.cells[position][2] <= found:
-                self.cells[found] = self.cells[position]
+            elif found and self.cells[position][2] <= hole:
+                self.cells[hole] = self.cells[position]
                 self.cells[position] = (None, None, None)
-                found = position
+                hole = position
             position += 1
             if position == len(self.cells):
                 position = 0
@@ -344,9 +346,9 @@ class HashTableLinearProbing(object):
         # Option to reduce size if cells are sparsely filled (low load factor)
         elif new_size is 0:
             new_size = len(self.cells) / 2  # Half size
-        # TODO: Get a list to temporarily hold all current key-value entries
+        # Get a list to temporarily hold all current key-value entries
         entries = self.items()
-        # TODO: Create a new list of new_size total empty linked list cells
+        # Create a new list of new_size total empty linked list cells
         self.cells = [(None, None, None)] * new_size
         # Insert each key-value entry into the new list of cells,
         # which will rehash them into a new cell index based on the new size

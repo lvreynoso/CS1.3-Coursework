@@ -147,6 +147,19 @@ class HashTableTest(unittest.TestCase):
         with self.assertRaises(KeyError):
             ht.delete('A')  # Key does not exist
 
+    def test_more_resizing(self):
+        ht = HashTable(4)
+        assert len(ht.cells) == 4
+        ht.set(2, 4)
+        ht.set(3, 9)
+        assert len(ht.cells) == 4
+        assert ht.load_factor() == 0.5
+        ht.set(4, 16)
+        assert len(ht.cells) == 4
+        assert ht.load_factor() == 0.75
+        ht.set(5, 25)
+        assert len(ht.cells) == 8
+        assert ht.load_factor() == 0.5
 
 if __name__ == '__main__':
     unittest.main()
